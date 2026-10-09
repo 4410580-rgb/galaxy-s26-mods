@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">テザリングON/OFF</string>
-    <color name="icon_bg">#1565C0</color>
+    <!-- app_name と icon_bg は各フレーバーで定義 -->
+    <string name="err_detect">テザリング状態を判定できませんでした</string>
+    <string name="err_helper">補助アプリが見つかりません（ON用/OFF用をインストールしてください）</string>
 </resources>

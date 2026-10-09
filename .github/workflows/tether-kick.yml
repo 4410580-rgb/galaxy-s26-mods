@@ -30,13 +30,15 @@ jobs:
         with:
           gradle-version: '8.7'
 
-      - name: Build APK
+      - name: Build APKs
         run: gradle assembleRelease --no-daemon
 
-      - name: Rename APK
+      - name: Rename APKs
         run: |
           mkdir -p out
-          cp app/build/outputs/apk/release/app-release.apk out/TetherToggle.apk
+          cp app/build/outputs/apk/toggle/release/app-toggle-release.apk out/TetherToggle.apk
+          cp app/build/outputs/apk/on/release/app-on-release.apk         out/TetherHelperON.apk
+          cp app/build/outputs/apk/off/release/app-off-release.apk       out/TetherHelperOFF.apk
 
       - uses: actions/upload-artifact@v4
         with:

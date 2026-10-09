@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 本体：背面タップから起動。状態を見て ON用 / OFF用 の補助アプリを開く -->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <!-- ネットワークインターフェース列挙用 -->
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <!-- 補助アプリを明示起動するためのパッケージ可視性 -->
+    <queries>
+        <package android:name="com.tetherkick.on" />
+        <package android:name="com.tetherkick.off" />
+    </queries>
+
+    <application>
+        <activity
+            android:name=".ToggleActivity"
+            android:exported="true"
+            android:excludeFromRecents="true"
+            android:noHistory="true"
+            android:taskAffinity=""
+            android:theme="@style/Invisible">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+</manifest>

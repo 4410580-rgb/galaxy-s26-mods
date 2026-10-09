@@ -7,23 +7,27 @@ android {
     compileSdk 34
 
     defaultConfig {
-        applicationId 'com.tetherkick'
+        applicationId 'com.tetherkick.toggle'
         minSdk 26
         targetSdk 34
-        versionCode 1
-        versionName '1.0'
+        versionCode 2
+        versionName '1.1'
     }
 
-    // ON用とOFF用を別パッケージ（別アプリ）としてビルド
-    flavorDimensions = ['mode']
-    productFlavors {
-        on {
-            dimension 'mode'
-            applicationIdSuffix '.on'
+    // 固定の鍵で署名する（毎回同じ署名になるので、次回以降は上書きインストールできる）
+    signingConfigs {
+        fixed {
+            storeFile file('release.keystore')
+            storePassword 'tetherkick'
+            keyAlias 'tetherkick'
+            keyPassword 'tetherkick'
         }
-        off {
-            dimension 'mode'
-            applicationIdSuffix '.off'
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            signingConfig signingConfigs.fixed
         }
     }
 

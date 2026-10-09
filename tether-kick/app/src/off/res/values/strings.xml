@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">テザOFF</string>
+    <string name="toast">テザリング OFF</string>
+    <color name="icon_bg">#616161</color>
+</resources>

@@ -1,0 +1,53 @@
+name: tether-kick
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'tether-kick/**'
+      - '.github/workflows/tether-kick.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+defaults:
+  run:
+    working-directory: tether-kick
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.7'
+
+      - name: Build ON / OFF APKs
+        run: gradle assembleDebug --no-daemon
+
+      - name: Rename APKs
+        run: |
+          mkdir -p out
+          cp app/build/outputs/apk/on/debug/app-on-debug.apk   out/TetherON.apk
+          cp app/build/outputs/apk/off/debug/app-off-debug.apk out/TetherOFF.apk
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: tether-kick-apks
+          path: tether-kick/out/*.apk
+
+      # スマホから直接DLしやすいよう Releases にも置く
+      - name: Publish release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: tether-kick-${{ github.run_number }}
+          name: tether-kick ${{ github.run_number }}
+          files: tether-kick/out/*.apk

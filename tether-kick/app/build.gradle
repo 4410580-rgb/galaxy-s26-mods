@@ -1,0 +1,34 @@
+plugins {
+    id 'com.android.application'
+}
+
+android {
+    namespace 'com.tetherkick'
+    compileSdk 34
+
+    defaultConfig {
+        applicationId 'com.tetherkick'
+        minSdk 26
+        targetSdk 34
+        versionCode 1
+        versionName '1.0'
+    }
+
+    // ON用とOFF用を別パッケージ（別アプリ）としてビルド
+    flavorDimensions = ['mode']
+    productFlavors {
+        on {
+            dimension 'mode'
+            applicationIdSuffix '.on'
+        }
+        off {
+            dimension 'mode'
+            applicationIdSuffix '.off'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+}
